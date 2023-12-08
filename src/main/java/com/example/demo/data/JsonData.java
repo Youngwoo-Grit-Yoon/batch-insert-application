@@ -1,4 +1,4 @@
 package com.example.demo.data;
 
-public class DataLoader {
+public class JsonData {
 }
