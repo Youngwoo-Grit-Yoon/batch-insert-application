@@ -1,11 +1,13 @@
 package com.example.demo.config;
 
-import com.example.demo.data.JsonData;
+import com.example.demo.data.JsonDataFile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+
+import java.io.FileNotFoundException;
 
 @Configuration
 public class SingletonBeanConfig {
@@ -14,7 +16,7 @@ public class SingletonBeanConfig {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public JsonData getJsonData() {
-        return new JsonData(this.jsonDataFilePath);
+    public JsonDataFile getJsonData() throws FileNotFoundException {
+        return new JsonDataFile(this.jsonDataFilePath);
     }
 }
