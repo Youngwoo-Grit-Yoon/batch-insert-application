@@ -44,3 +44,11 @@ public class Config {
 Config 클래스는 Address 타입의 bean을 생성한다. 또한, Config 클래스는 @ComponentScan 애노테이션도 갖고 있는데, 컨테이너한테 Company
 클래스를 포함하는 패키지에서 bean을 찾으라는 것을 지시한다. Spring IoC 컨테이너가 이러한 타입의 객체들을 생성할 때, Spring bean이라고
 불리는 모든 객체는 IoC 컨테이너에 의해서 관리된다.
+
+Config 클래스에 bean을 정의하였으므로, 이제 컨테이너를 빌드하기 위해 AnnotationConfigApplicationContext 클래스의 인스턴스가 필요하다.
+```text
+ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+Company company = context.getBean("company", Company.class);
+assertEquals("High Street", company.getAddress().getStreet());
+assertEquals(1000, company.getAddress().getNumber());
+```
