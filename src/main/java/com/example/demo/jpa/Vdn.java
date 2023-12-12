@@ -2,8 +2,9 @@ package com.example.demo.jpa;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Data
@@ -33,12 +34,16 @@ public class Vdn {
     private String result;
     @Column(name = "regi_user_id")
     private String regiUserId;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "regi_dttm")
-    private Timestamp regiDttm;
+    private Date regiDttm;
     @Column(name = "updt_user_id")
     private String updtUserId;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updt_dttm")
-    private Timestamp updtDttm;
+    private Date updtDttm;
     @Column(name = "modify_flag")
     private final String modifyFlag = "1";
 }
