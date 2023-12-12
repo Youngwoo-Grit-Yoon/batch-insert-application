@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.config.VdnConfiguration;
 import com.example.demo.data.JsonDataFile;
+import com.example.demo.data.VdnData;
 import com.example.demo.jpa.Vdn;
 import com.example.demo.jpa.VdnRepository;
 import com.google.gson.JsonArray;
@@ -36,36 +37,23 @@ public class DemoApplication {
 			for (JsonElement jsonElement : vdnJsonArray) {
 				// 데이터 파싱
 				count++;
-				JsonObject jsonObject = jsonElement.getAsJsonObject();
-				String vdnNo = jsonObject.get("vdn_no").getAsString();
-				String monitor = jsonObject.get("monitor").getAsString();
-				String type = jsonObject.get("type").getAsString();
-				String split = jsonObject.get("split").getAsString();
-				String checkLink = jsonObject.get("check_link").getAsString();
-				String comment = jsonObject.get("comment").getAsString();
-				String result = jsonObject.get("result").getAsString();
+				VdnData vdnData = new VdnData(jsonElement.getAsJsonObject());
 				System.out.println(MessageFormat.format("""
 						> {0}번째 데이터 삽입
-						vdn_no     : {1}
-						monitor    : {2}
-						type       : {3}
-						split      : {4}
-						check_link : {5}
-						comment    : {6}
-						result     : {7}""", count, vdnNo, monitor, type, split, checkLink, comment, result));
+						{1}""", count, vdnData.toString()));
 
 				// 데이터 삽입
 				try {
 					vdnRepository.save(new Vdn(
-							vdnNo,
+							vdnData.getVdnNo(),
 							vdnConfiguration.getCenterId(),
 							vdnConfiguration.getServerId(),
-							monitor,
-							type,
-							split,
-							checkLink,
-							comment,
-							result));
+							vdnData.getMonitor(),
+							vdnData.getType(),
+							vdnData.getSplit(),
+							vdnData.getCheckLink(),
+							vdnData.getComment(),
+							vdnData.getResult()));
 				} catch (Exception e) {
 					System.out.println(MessageFormat.format("""
 							{0}번째 데이터 삽입 도중 에러가 발생하였습니다. 자세한 내용은 아래 내용을 확인하세요.
