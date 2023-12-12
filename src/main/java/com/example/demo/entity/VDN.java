@@ -12,11 +12,11 @@ public class VDN {
     @Column(name = "vdn_sq_id")
     private String vdnSqId;
     @Column(name = "vdn_no")
-    private String vdnNo;
+    private final String vdnNo;
     @Column(name = "center_id")
-    private String centerId;
+    private final String centerId;
     @Column(name = "server_id")
-    private String serverId;
+    private final String serverId;
     @Column(name = "monitoring_yn")
     private String monitoringYn;
     @Column(name = "vdn_type")
@@ -38,5 +38,5 @@ public class VDN {
     @Column(name = "updt_dttm")
     private String updtDttm;
     @Column(name = "modify_flag")
-    private String modifyFlag;
+    private final String modifyFlag = "1";
 }
