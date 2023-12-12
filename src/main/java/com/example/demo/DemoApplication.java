@@ -7,6 +7,7 @@ import com.example.demo.jpa.Vdn;
 import com.example.demo.jpa.VdnRepository;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -20,7 +21,7 @@ import java.text.MessageFormat;
 public class DemoApplication {
 	@Autowired
 	@Qualifier("jsonDataFile")
-	private JsonDataFile jsonDataFile;
+	private JsonObject jsonDataFile;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -29,7 +30,7 @@ public class DemoApplication {
 	@Bean
 	public CommandLineRunner run(VdnRepository vdnRepository, VdnDefaultConfig vdnDefaultConfig) {
 		return (args) -> {
-			JsonArray vdnJsonArray = this.jsonDataFile.getJsonObject().get("vdn_list").getAsJsonArray();
+			JsonArray vdnJsonArray = this.jsonDataFile.get("vdn_list").getAsJsonArray();
 			int count = 0;
 			for (JsonElement jsonElement : vdnJsonArray) {
 				// 데이터 파싱
