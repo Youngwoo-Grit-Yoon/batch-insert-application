@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "vdn")
 @Data
-public class VdnConfiguration {
+public class VdnDefaultConfig {
     private String centerId;
     private String serverId;
 }

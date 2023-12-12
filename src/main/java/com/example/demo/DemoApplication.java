@@ -1,21 +1,18 @@
 package com.example.demo;
 
-import com.example.demo.config.VdnConfiguration;
+import com.example.demo.config.VdnDefaultConfig;
 import com.example.demo.data.JsonDataFile;
 import com.example.demo.data.VdnData;
 import com.example.demo.jpa.Vdn;
 import com.example.demo.jpa.VdnRepository;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.text.MessageFormat;
 
@@ -30,7 +27,7 @@ public class DemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner run(VdnRepository vdnRepository, VdnConfiguration vdnConfiguration) {
+	public CommandLineRunner run(VdnRepository vdnRepository, VdnDefaultConfig vdnDefaultConfig) {
 		return (args) -> {
 			JsonArray vdnJsonArray = this.jsonDataFile.getJsonObject().get("vdn_list").getAsJsonArray();
 			int count = 0;
@@ -46,8 +43,8 @@ public class DemoApplication {
 				try {
 					vdnRepository.save(new Vdn(
 							vdnData.getVdnNo(),
-							vdnConfiguration.getCenterId(),
-							vdnConfiguration.getServerId(),
+							vdnDefaultConfig.getCenterId(),
+							vdnDefaultConfig.getServerId(),
 							vdnData.getMonitor(),
 							vdnData.getType(),
 							vdnData.getSplit(),
