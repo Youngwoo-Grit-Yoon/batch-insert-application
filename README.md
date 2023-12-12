@@ -58,11 +58,11 @@ assertEquals(1000, company.getAddress().getNumber());
 DB가 아닌 텍스트 파일로 관리하던 사이트는 DB로 내선 정보를 일괄 등록해야 한다. 해당 프로그램은 텍스트 파일로부터 내선 정보를 읽어 들여 DB에 배치 삽입을 수행한다.
 
 ## PostgreSQL 테이블 정보
-### 시퀀스
+### Sequence
 ```text
 CREATE SEQUENCE seq_vdn START 1;
 ```
-### 스키마
+### Table Schema
 ```text
 CREATE TABLE public.tb_bm_mn_vdn (
 	vdn_sq_id varchar(20) NOT NULL DEFAULT nextval('seq_vdn'::regclass),
