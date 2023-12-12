@@ -1,0 +1,14 @@
+# Database
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
+    username: postgres
+    password: password
+
+# JSON Data File Path
+json-data-file-path: /Users/youngwooyoon/YYW/GitHub/batch-insert-application/data.json
+
+# VDN Center and Server Information
+vdn.center-id: test-center-id
+vdn.server-id: test-server-id
