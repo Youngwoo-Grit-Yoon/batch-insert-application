@@ -3,6 +3,8 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Entity
 @Data
 @Table(name="tb_bm_mn_vdn")
@@ -32,11 +34,11 @@ public class VDN {
     @Column(name = "regi_user_id")
     private String regiUserId;
     @Column(name = "regi_dttm")
-    private String regiDttm;
+    private Timestamp regiDttm;
     @Column(name = "updt_user_id")
     private String updtUserId;
     @Column(name = "updt_dttm")
-    private String updtDttm;
+    private Timestamp updtDttm;
     @Column(name = "modify_flag")
     private final String modifyFlag = "1";
 }
