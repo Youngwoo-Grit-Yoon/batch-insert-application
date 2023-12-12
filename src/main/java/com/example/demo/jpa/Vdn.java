@@ -21,17 +21,17 @@ public class Vdn {
     @Column(name = "server_id")
     private final String serverId;
     @Column(name = "monitoring_yn")
-    private String monitoringYn;
+    private final String monitoringYn;
     @Column(name = "vdn_type")
-    private String vdnType;
+    private final String vdnType;
     @Column(name = "split")
-    private String split;
+    private final String split;
     @Column(name = "check_link")
-    private String checkLink;
+    private final String checkLink;
     @Column(name = "comment")
-    private String comment;
+    private final String comment;
     @Column(name = "result")
-    private String result;
+    private final String result;
     @Column(name = "regi_user_id")
     private String regiUserId;
     @CreationTimestamp
@@ -45,5 +45,5 @@ public class Vdn {
     @Column(name = "updt_dttm")
     private Date updtDttm;
     @Column(name = "modify_flag")
-    private final String modifyFlag = "1";
+    private String modifyFlag = "1";
 }
