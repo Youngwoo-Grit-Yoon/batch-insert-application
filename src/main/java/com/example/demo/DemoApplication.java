@@ -1,7 +1,9 @@
 package com.example.demo;
 
+import com.example.demo.config.VdnConfiguration;
 import com.example.demo.jpa.Vdn;
 import com.example.demo.jpa.VdnRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,9 +17,9 @@ public class DemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner run(VdnRepository vdnRepository) {
+	public CommandLineRunner run(VdnRepository vdnRepository, VdnConfiguration vdnConfiguration) {
 		return (args) -> {
-			vdnRepository.save(new Vdn("test", "test", "test"));
+
 		};
 	}
 }
