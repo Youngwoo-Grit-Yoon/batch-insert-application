@@ -14,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.text.MessageFormat;
 
@@ -33,6 +34,7 @@ public class DemoApplication {
 			JsonArray vdnJsonArray = this.jsonDataFile.getJsonObject().get("vdn_list").getAsJsonArray();
 			int count = 0;
 			for (JsonElement jsonElement : vdnJsonArray) {
+				// 데이터 파싱
 				count++;
 				JsonObject jsonObject = jsonElement.getAsJsonObject();
 				String vdnNo = jsonObject.get("vdn_no").getAsString();
@@ -51,6 +53,24 @@ public class DemoApplication {
 						check_link : {5}
 						comment    : {6}
 						result     : {7}""", count, vdnNo, monitor, type, split, checkLink, comment, result));
+
+				// 데이터 삽입
+				try {
+					vdnRepository.save(new Vdn(
+							vdnNo,
+							vdnConfiguration.getCenterId(),
+							vdnConfiguration.getServerId(),
+							monitor,
+							type,
+							split,
+							checkLink,
+							comment,
+							result));
+				} catch (Exception e) {
+					System.out.println(MessageFormat.format("""
+							{0}번째 데이터 삽입 도중 에러가 발생하였습니다. 자세한 내용은 아래 내용을 확인하세요.
+							{1}""", count, e.getMessage()));
+				}
 			}
 		};
 	}
