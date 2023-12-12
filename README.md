@@ -57,7 +57,29 @@ assertEquals(1000, company.getAddress().getNumber());
 콜센터 고도화 프로젝트를 수행할 때 상담원 내선을 저장하고 있는 소스 데이터베이스를 타겟 데이터베이스로 마이그레이션을 수행해야 할 수도 있다. 이때 기존에 내선 관리를
 DB가 아닌 텍스트 파일로 관리하던 사이트는 DB로 내선 정보를 일괄 등록해야 한다. 해당 프로그램은 텍스트 파일로부터 내선 정보를 읽어 들여 DB에 배치 삽입을 수행한다.
 
-## PostgreSQL 시퀀스 생성하기
+## PostgreSQL 테이블 정보
+### 시퀀스
 ```text
 CREATE SEQUENCE seq_vdn START 1;
+```
+### 스키마
+```text
+CREATE TABLE public.tb_bm_mn_vdn (
+	vdn_sq_id varchar(20) NOT NULL DEFAULT nextval('seq_vdn'::regclass),
+	vdn_no varchar(20) NOT NULL,
+	center_id varchar(20) NOT NULL,
+	server_id varchar(20) NOT NULL,
+	monitoring_yn varchar(1) NULL,
+	vdn_type varchar(20) NULL,
+	split varchar(20) NULL,
+	check_link varchar(4) NULL,
+	"comment" varchar(128) NULL,
+	"result" varchar(20) NULL,
+	regi_user_id varchar(20) NULL,
+	regi_dttm timestamp NULL DEFAULT now(),
+	updt_user_id varchar(20) NULL,
+	updt_dttm timestamp NULL DEFAULT now(),
+	modify_flag varchar(1) NULL,
+	CONSTRAINT tb_bm_mn_vdn_pk PRIMARY KEY (vdn_sq_id)
+);
 ```
