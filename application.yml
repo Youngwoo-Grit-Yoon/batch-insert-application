@@ -12,7 +12,7 @@ spring:
           batch_size: 1000
 
 # JSON Data File Path
-json-data-file-path: /Users/youngwooyoon/YYW/GitHub/batch-insert-application/data.json
+json-data-file-path: /Users/youngwooyoon/YYW/GitHub/batch-insert-application/cfg_vdn.json
 
 # VDN Center and Server Default Information
 vdn.center-id: test-center-id

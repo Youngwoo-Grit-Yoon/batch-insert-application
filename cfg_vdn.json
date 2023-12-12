@@ -1,0 +1,31 @@
+{
+    "vdn_list": [
+        {
+            "vdn_no": "20001",
+            "monitor": "Y",
+            "type": "1",
+            "split": "0",
+            "check_link": "1111",
+            "comment": "IVR_IN",
+            "result": "0000"
+        },
+        {
+            "vdn_no": "20002",
+            "monitor": "Y",
+            "type": "1",
+            "split": "0",
+            "check_link": "1111",
+            "comment": "IVR_IN",
+            "result": "0000"
+        },
+        {
+            "vdn_no": "20003",
+            "monitor": "Y",
+            "type": "1",
+            "split": "0",
+            "check_link": "1111",
+            "comment": "IVR_IN",
+            "result": "0000"
+        }
+    ]
+}
