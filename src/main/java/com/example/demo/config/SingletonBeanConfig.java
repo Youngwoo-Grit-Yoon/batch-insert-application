@@ -16,7 +16,7 @@ public class SingletonBeanConfig {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public JsonDataFile getJsonData() throws FileNotFoundException {
+    public JsonDataFile jsonDataFile() throws FileNotFoundException {
         return new JsonDataFile(this.jsonDataFilePath);
     }
 }
