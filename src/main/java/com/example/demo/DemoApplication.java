@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.config.VdnDefaultConfig;
-import com.example.demo.data.JsonDataFile;
 import com.example.demo.data.VdnData;
 import com.example.demo.jpa.Vdn;
 import com.example.demo.jpa.VdnRepository;

@@ -1,6 +1,5 @@
 package com.example.demo.config;
 
-import com.example.demo.data.JsonDataFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
