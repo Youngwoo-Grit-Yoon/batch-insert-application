@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.jpa;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @Table(name="tb_bm_mn_vdn")
-public class VDN {
+public class Vdn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vdn_sq_id")
