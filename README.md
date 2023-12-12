@@ -52,3 +52,7 @@ Company company = context.getBean("company", Company.class);
 assertEquals("High Street", company.getAddress().getStreet());
 assertEquals(1000, company.getAddress().getNumber());
 ```
+
+## 프로그램 개발 목적
+콜센터 고도화 프로젝트를 수행할 때 상담원 내선을 저장하고 있는 소스 데이터베이스를 타겟 데이터베이스로 마이그레이션을 수행해야 할 수도 있다. 이때 기존에 내선 관리를
+DB가 아닌 텍스트 파일로 관리하던 사이트는 DB로 내선 정보를 일괄 등록해야 한다. 해당 프로그램은 텍스트 파일로부터 내선 정보를 읽어 들여 DB에 배치 삽입을 수행한다.
