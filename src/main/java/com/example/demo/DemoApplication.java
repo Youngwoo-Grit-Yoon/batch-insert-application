@@ -7,6 +7,7 @@ import com.example.demo.jpa.VdnRepository;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +28,7 @@ public class DemoApplication {
 	}
 
 	@Bean
+	@Transactional
 	public CommandLineRunner run(VdnRepository vdnRepository, VdnDefaultConfig vdnDefaultConfig) {
 		return (args) -> {
 			JsonArray vdnJsonArray = this.jsonDataFile.get("vdn_list").getAsJsonArray();
@@ -52,9 +54,10 @@ public class DemoApplication {
 							vdnData.getComment(),
 							vdnData.getResult()));
 				} catch (Exception e) {
-					System.out.println(MessageFormat.format("""
+					String message = MessageFormat.format("""
 							{0}번째 데이터 삽입 도중 에러가 발생하였습니다. 자세한 내용은 아래 내용을 확인하세요.
-							{1}""", count, e.getMessage()));
+							{1}""", count, e.getMessage());
+					throw new RuntimeException(message);
 				}
 			}
 		};
