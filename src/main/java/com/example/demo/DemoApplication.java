@@ -16,50 +16,49 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class DemoApplication {
 	@Autowired
 	@Qualifier("jsonDataFile")
 	private JsonObject jsonDataFile;
+	private final VdnRepository vdnRepository;
+	private final VdnDefaultConfig vdnDefaultConfig;
+
+	public DemoApplication(VdnRepository vdnRepository, VdnDefaultConfig vdnDefaultConfig) {
+		this.vdnRepository = vdnRepository;
+		this.vdnDefaultConfig = vdnDefaultConfig;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
 	@Bean
-	@Transactional
-	public CommandLineRunner run(VdnRepository vdnRepository, VdnDefaultConfig vdnDefaultConfig) {
+	public CommandLineRunner run() {
 		return (args) -> {
 			JsonArray vdnJsonArray = this.jsonDataFile.get("vdn_list").getAsJsonArray();
-			int count = 0;
-			for (JsonElement jsonElement : vdnJsonArray) {
-				// 데이터 파싱
-				count++;
-				VdnData vdnData = new VdnData(jsonElement.getAsJsonObject());
-				System.out.println(MessageFormat.format("""
-						> {0}번째 데이터 삽입
-						{1}""", count, vdnData.toString()));
+			List<Vdn> vdnDataList = new ArrayList<>();
+			VdnData vdnData;
 
-				// 데이터 삽입
-				try {
-					vdnRepository.save(new Vdn(
-							vdnData.getVdnNo(),
-							vdnDefaultConfig.getCenterId(),
-							vdnDefaultConfig.getServerId(),
-							vdnData.getMonitor(),
-							vdnData.getType(),
-							vdnData.getSplit(),
-							vdnData.getCheckLink(),
-							vdnData.getComment(),
-							vdnData.getResult()));
-				} catch (Exception e) {
-					String message = MessageFormat.format("""
-							{0}번째 데이터 삽입 도중 에러가 발생하였습니다. 자세한 내용은 아래 내용을 확인하세요.
-							{1}""", count, e.getMessage());
-					throw new RuntimeException(message);
-				}
+			for (JsonElement jsonElement : vdnJsonArray) {
+				vdnData = new VdnData(jsonElement.getAsJsonObject());
+				vdnDataList.add(new Vdn(
+						vdnData.getVdnNo(),
+						vdnDefaultConfig.getCenterId(),
+						vdnDefaultConfig.getServerId(),
+						vdnData.getMonitor(),
+						vdnData.getType(),
+						vdnData.getSplit(),
+						vdnData.getCheckLink(),
+						vdnData.getComment(),
+						vdnData.getResult()
+				));
 			}
+
+			this.vdnRepository.saveAll(vdnDataList);
 		};
 	}
 }
