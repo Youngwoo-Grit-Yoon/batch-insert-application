@@ -1,4 +1,5 @@
 # Batch Insert Application
+Contributed to Ju In-Seon
 ## 참고 자료
 JPA 참고 링크  
 https://spring.io/guides/gs/accessing-data-jpa/
