@@ -68,12 +68,24 @@ public class DemoApplication {
 	}
 
 	void saveWithRollback() {
-		this.vdnRepository.saveAll(this.vdnList);
+		try {
+			this.vdnRepository.saveAll(this.vdnList);
+		} catch (Exception e) {
+			System.out.println(MessageFormat.format("""
+					VDN 데이터를 배치 삽입하는 도중 에러가 발생하였습니다. 하기 내용을 확인해주세요.
+					{0}""", e.getMessage()));
+		}
 	}
 
 	void saveWithoutRollback() {
 		for (Vdn vdn : this.vdnList) {
-			this.vdnRepository.save(vdn);
+			try {
+				this.vdnRepository.save(vdn);
+			} catch (Exception e) {
+				System.out.println(MessageFormat.format("""
+					VDN 데이터를 개별 삽입하는 도중 에러가 발생하였습니다. 하기 내용을 확인해주세요.
+					{0}""", e.getMessage()));
+			}
 		}
 	}
 }
