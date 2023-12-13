@@ -17,3 +17,6 @@ json-data-file-path: /Users/youngwooyoon/YYW/GitHub/batch-insert-application/cfg
 # VDN Center and Server Default Information
 vdn.center-id: C1
 vdn.server-id: C1-CTI-01
+
+# Rollback or not when error occurred
+vdn.rollback: false

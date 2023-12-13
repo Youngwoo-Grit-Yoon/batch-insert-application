@@ -26,6 +26,7 @@ public class DemoApplication {
 	private JsonObject jsonDataFile;
 	private final VdnRepository vdnRepository;
 	private final VdnDefaultConfig vdnDefaultConfig;
+	private List<Vdn> vdnList;
 
 	public DemoApplication(VdnRepository vdnRepository, VdnDefaultConfig vdnDefaultConfig) {
 		this.vdnRepository = vdnRepository;
@@ -40,12 +41,12 @@ public class DemoApplication {
 	public CommandLineRunner run() {
 		return (args) -> {
 			JsonArray vdnJsonArray = this.jsonDataFile.get("vdn_list").getAsJsonArray();
-			List<Vdn> vdnDataList = new ArrayList<>();
+			this.vdnList = new ArrayList<>();
 			VdnData vdnData;
 
 			for (JsonElement jsonElement : vdnJsonArray) {
 				vdnData = new VdnData(jsonElement.getAsJsonObject());
-				vdnDataList.add(new Vdn(
+				this.vdnList.add(new Vdn(
 						vdnData.getVdnNo(),
 						vdnDefaultConfig.getCenterId(),
 						vdnDefaultConfig.getServerId(),
@@ -58,7 +59,21 @@ public class DemoApplication {
 				));
 			}
 
-			this.vdnRepository.saveAll(vdnDataList);
+			if (this.vdnDefaultConfig.isRollback()) {
+				saveWithRollback();
+			} else {
+				saveWithoutRollback();
+			}
 		};
+	}
+
+	void saveWithRollback() {
+		this.vdnRepository.saveAll(this.vdnList);
+	}
+
+	void saveWithoutRollback() {
+		for (Vdn vdn : this.vdnList) {
+			this.vdnRepository.save(vdn);
+		}
 	}
 }

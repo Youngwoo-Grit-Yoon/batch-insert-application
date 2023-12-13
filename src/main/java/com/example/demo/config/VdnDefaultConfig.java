@@ -10,4 +10,5 @@ import org.springframework.context.annotation.Configuration;
 public class VdnDefaultConfig {
     private String centerId;
     private String serverId;
+    private boolean rollback;
 }
